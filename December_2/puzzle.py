@@ -15,21 +15,23 @@ def get_points_for_choice(player_choice):
 
 
 def get_points_for_result_pt1(opponent_choice, player_choice):
+    points_for_outcome = 0
+
     draw_cond_1 = opponent_choice == opponent_rock and player_choice == player_rock
     draw_cond_2 = opponent_choice == opponent_paper and player_choice == player_paper
     draw_cond_3 = opponent_choice == opponent_scissors and player_choice == player_scissors
 
     if draw_cond_1 or draw_cond_2 or draw_cond_3:
-        return 3
+        points_for_outcome = 3
 
     win_cond_1 = opponent_choice == opponent_rock and player_choice == player_paper
     win_cond_2 = opponent_choice == opponent_paper and player_choice == player_scissors
     win_cond_3 = opponent_choice == opponent_scissors and player_choice == player_rock
 
     if win_cond_1 or win_cond_2 or win_cond_3:
-        return 6
+        points_for_outcome = 6
 
-    return 0
+    return points_for_outcome + get_points_for_choice(player_choice)
 
 
 def get_points_for_result_pt2(opponent_choice, how_round_should_end):
@@ -70,15 +72,12 @@ def calculate_points_for_round(part):
     with open('input-data.txt', 'r') as file:
         for line in file:
             player_current_score = 0
+            arg1 = line[0]
+            arg2 = line[2]
             if part == 1:
-                opponent_choice = line[0]
-                player_choice = line[2]
-                player_current_score += get_points_for_choice(player_choice)
-                player_current_score += get_points_for_result_pt1(opponent_choice, player_choice)
+                player_current_score += get_points_for_result_pt1(arg1, arg2)
             elif part == 2:
-                opponent_choice = line[0]
-                how_round_should_end = line[2]
-                player_current_score += get_points_for_result_pt2(opponent_choice, how_round_should_end)
+                player_current_score += get_points_for_result_pt2(arg1, arg2)
             player_total_score += player_current_score
 
     return player_total_score
