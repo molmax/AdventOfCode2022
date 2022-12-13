@@ -12,9 +12,9 @@ for x in letters:
     letter2Priority[x] = i
     i = i + 1
 
-sum = 0
-
+# Part One
 with open('input-data.txt', 'r') as file:
+    sum = 0
     for line in file:
         leftpart = []
         rightpart = []
@@ -27,4 +27,15 @@ with open('input-data.txt', 'r') as file:
                 rightpart.append(x)
             i = i + 1
         sum = sum + letter2Priority[set(leftpart).intersection(rightpart).pop()]
-print(sum)
+    print(sum)
+
+# Part Two
+with open('input-data.txt', 'r') as file:
+    sum = 0
+    groups = []
+    i = 1
+    for line in file:
+        if i <=3:
+            pass
+        else:
+            i = 1
