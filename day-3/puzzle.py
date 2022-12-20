@@ -32,10 +32,22 @@ with open('input-data.txt', 'r') as file:
 # Part Two
 with open('input-data.txt', 'r') as file:
     sum = 0
-    groups = []
+    index_groups = {}
+    index = 1
     i = 1
     for line in file:
         if i <=3:
-            pass
+            i = i + 1
+            group = index_groups.get(index)
+            if group is not None:
+                group.append(line.strip())
+            else:
+                group = [line.strip()]
+                index_groups[index] = group
         else:
             i = 1
+            index = index + 1
+
+    for k, v in index_groups.items():
+        for x in v:
+            pass
